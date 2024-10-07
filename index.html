@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EC2 Instance Setup and Web Server Installation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    code {
+      background-color: #eee;
+      padding: 3px 6px;
+      border-radius: 3px;
+    }
+    pre {
+      background-color: #272822;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+    ul, ol {
+      margin: 20px 0;
+      padding: 0 20px;
+    }
+    section {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .terminal-command {
+      color: #66d9ef;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>EC2 Instance Setup and Web Server Installation</h1>
+
+  <section>
+    <h2>Step-by-Step Guide</h2>
+    <ol>
+      <li>Login to your AWS account.</li>
+      <li>Search for <strong>EC2</strong> in the AWS Management Console search bar.</li>
+      <li><strong>Create a new EC2 instance</strong>:
+        <ul>
+          <li>Give a name to your instance.</li>
+          <li>Select an AMI, such as Amazon Linux or Ubuntu.</li>
+          <li>Create a new key pair and download it.</li>
+          <li>Launch the instance.</li>
+        </ul>
+      </li>
+      <li>Connect to your EC2 instance using <strong>EC2 Instance Connect</strong>:
+        <ul>
+          <li>Click the <strong>Connect</strong> button in the EC2 console.</li>
+          <li>Select <strong>EC2 Instance Connect</strong>.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Terminal Commands</h2>
+    <p>Follow these commands to install a web server on your EC2 instance:</p>
+    
+    <pre><code># 1. Switch to Root User
+sudo su -
+
+# 2. Update the system
+yum update -y
+
+# 3. Install the web server (HTTPD)
+yum install -y httpd
+
+# 4. Check the status of the web server
+systemctl status httpd
+
+# 5. Create a directory and go to it
+mkdir temp && cd temp
+
+# 6. Download website template
+wget https://www.free-css.com/assets/files/free-css-templates/download/page296/listrace.zip
+
+# 7. Verify the downloaded file
+ls -lrt
+
+# 8. Unzip the downloaded file
+unzip listrace.zip
+
+# 9. List the unzipped content
+ls -lrt
+
+# 10. Navigate to the folder without the zip
+cd [FolderWithoutZip]
+
+# 11. Move the files to the web directory
+mv * /var/www/html/
+
+# 12. Go to the web directory
+cd /var/www/html/
+
+# 13. List the files in the web directory
+ls -lrt
+</code></pre>
+  </section>
+
+  <section>
+    <h2>Configure Security Groups</h2>
+    <ol>
+      <li>Go to the <strong>Security</strong> tab in the EC2 instance dashboard.</li>
+      <li>Add new inbound rules for:
+        <ul>
+          <li><strong>HTTP</strong> (Port 80)</li>
+          <li><strong>HTTPS</strong> (Port 443)</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Final Web Server Configuration</h2>
+    
+    <pre><code># 14. Check the web server status
+systemctl status httpd
+
+# 15. Enable the web server to start on boot
+systemctl enable httpd
+
+# 16. Start the web server
+systemctl start httpd
+
+# 17. Verify the web server status
+systemctl status httpd
+</code></pre>
+
+    <p>Reload the public IP address of your EC2 instance in the browser to see the deployed website!</p>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+EC2 Instance Setup and Web Server Installation
+Prerequisites
+Login to your AWS account.
+
+Search for EC2 in the AWS Management Console's search bar.
+
+Create a new EC2 instance:
+
+Give a name to your instance.
+Select an AMI (Amazon Machine Image), such as Amazon Linux or Ubuntu.
+Create a new key pair and download it.
+Launch the instance.
+Connect to your EC2 instance:
+
+Use the EC2 Instance Connect method.
+Click on the Connect button in the EC2 console.
+Select EC2 Instance Connect.
+Terminal Commands
+Once you're connected to your EC2 instance, follow these steps to install a web server and configure your instance:
+
+1. Switch to Root User
+bash
+Copy code
+sudo su -
+2. Update the System
+bash
+Copy code
+yum update -y
+3. Install the Web Server (HTTPD)
+bash
+Copy code
+yum install -y httpd
+4. Check the Status of the Web Server
+bash
+Copy code
+systemctl status httpd
+5. Create a Temporary Directory and Navigate to It
+bash
+Copy code
+mkdir temp && cd temp
+6. Download a Website Template
+bash
+Copy code
+wget https://www.free-css.com/assets/files/free-css-templates/download/page296/listrace.zip
+7. Check the Downloaded File
+bash
+Copy code
+ls -lrt
+8. Unzip the File
+bash
+Copy code
+unzip listrace.zip
+9. Check the Unzipped Content
+bash
+Copy code
+ls -lrt
+10. Navigate to the Unzipped Folder
+bash
+Copy code
+cd [FolderWithoutZip]
+11. List the Files Inside the Unzipped Folder
+bash
+Copy code
+ls -lrt
+12. Move Files to the Web Directory (/var/www/html/)
+bash
+Copy code
+mv * /var/www/html/
+13. Navigate to the Web Directory
+bash
+Copy code
+cd /var/www/html/
+14. List the Files in the Web Directory
+bash
+Copy code
+ls -lrt
+Configure Security Groups
+Go to the Security tab in the EC2 instance dashboard.
+Add new inbound rules for:
+HTTP (Port 80)
+HTTPS (Port 443)
+Final Web Server Configuration
+Check the Web Server Status (if the website does not load):
+bash
+Copy code
+systemctl status httpd
+Enable the Web Server to start on boot:
+bash
+Copy code
+systemctl enable httpd
+Start the Web Server:
+bash
+Copy code
+systemctl start httpd
+Verify the Web Server Status:
+bash
+Copy code
+systemctl status httpd
+After completing these steps, reload your EC2 public IP address in your browser to view your website!
+
+
+
+
+
+
+
